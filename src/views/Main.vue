@@ -1,16 +1,19 @@
 <template>
   <div>
+
     <h2>Поиск геообъектов</h2>
+    <div class="adresa">
+        <div>
+        <el-input type="text" placeholder="Введите адрес" v-model="searchQuery" @input="onSearchInput"></el-input>
+      </div>
 
-    <div>
-      <el-input type="text" placeholder="Введите адрес" v-model="searchQuery" @input="onSearchInput"></el-input>
+      <ul v-if="searchResults.length">
+        <li v-for="result in searchResults" :key="result.place_id" @click="selectLocation(result)" class="adres">
+          {{ result.display_name }}
+        </li>
+      </ul>
     </div>
-
-    <ul v-if="searchResults.length">
-      <li v-for="result in searchResults" :key="result.place_id" @click="selectLocation(result)" class="adres">
-        {{ result.display_name }}
-      </li>
-    </ul>
+    
     <div class="map">
       <div id="map" ref="map"></div> 
     </div>
@@ -95,16 +98,24 @@ export default {
   margin: 20px;
 }
 .adres {
-  padding: 8px;
+  list-style: none;
+  padding: 8px 12px;
   border: 1px solid rgb(216, 216, 216);
   margin-top: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   border-radius: 12px;
   cursor: pointer;
+  text-decoration: none;
+  text-align: left;
 }
 .adres:hover {
   background-color: #e9e9e9;
+}
+ul {
+  padding-inline-start: 0;
+}
+.adresa {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20%;
 }
 </style>
